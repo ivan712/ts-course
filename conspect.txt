@@ -1,0 +1,83 @@
+Init ts project: tsc --init. We will get tsconfig file. tsc command compiles ts files into js.
+
+Tuple: [number, string]. Allow push and pop operation. Interesting exaple: const arr: [number, string, ...boolean[]] = [1, 'aaa', true, false]
+
+Readonly: const arr: readonly string[] = [1,2,3]. demand ellements changing before compilation and push, pop operations.
+
+Type narrowing: 
+const obj: { a: string } | { b: string } = { a: 'AA' }
+if (a in obj) {
+  console.log(obj.a);
+} else {
+  console.log(obj.b);
+}
+Another one:
+const a: number | string = 'gg';
+if (typeof a === 'number') {
+  console.log(a.toString());
+} else {
+  console.log(a.length);
+}
+
+Literal types: when a variable can have only exact meaning. E.g. const a = 1; (a: 1); With union types: function f(gg: 'post' | 'get'). E.g.: 
+function f(gg: 'post' | 'get')
+let v = 'post';
+f(v) - recieve comple error, because gg - literal type but v - string. To fix it we have two ways: 1. const v = 'post' - literal type in this case. 2. f(v as 'post')
+
+type: 
+type strNumber = number | string;
+type Person = {
+  age: number,
+  name: string
+}
+type Role = {
+  isAdmin: boolean,
+  role: string
+}
+type User = Person & Role;
+const person: Person = {
+  age: 23,
+  name: 'Ivan',
+  isAdmin: true,
+  role: 'God'
+}
+
+interfaces:
+interface Person {
+  name,
+  age
+}
+interface Role {
+  id: number
+}
+interface User extends Person, Role {
+  isValid: (action: string) => boolean;
+}
+
+types or interfaces
+E.g.
+interface User {
+  age: number;
+}
+interface User {
+  name: string;
+}
+const user: User = {
+  age: 23,
+  name: 'Ivan'
+}
+With types you can not do such things.
+Types are usually used for union primitive type. Interfaces for classes and objects.
+
+Optional types
+interface User {
+  name: string;
+  password?: string //is optional. Different from password: string | undefined !!!
+}
+password ?? 'hello' the same if (password === null | password === undefined) return hello esle return password;
+password! - shows compiler that password 100% is not undefined
+
+Void
+Function return nothing. If function declaired like void returns something, ts will ignore it and you will not be able to variable that recieve value from void func.
+Provides compatibility
+
