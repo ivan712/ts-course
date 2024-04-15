@@ -81,3 +81,21 @@ Void
 Function return nothing. If function declaired like void returns something, ts will ignore it and you will not be able to variable that recieve value from void func.
 Provides compatibility
 
+Unknown
+Can be assigned only to unknown or any type of variable. Can be met in errors when we use try/catch. To use unknown variable it is nessasarry to use type narrowing. 
+Example with type operator: type U1 = unknown | string - always unknown despite string.
+type U2 = unknown & string; - always string
+
+Never
+Shows that actions should never happend. 
+Helps to write more safety code. 
+Examples of using:
+1. Functions that return errors: function throwErr(): never { throw new Error() }
+2. infinite cycles and recursions.
+3. in switch/case constructions(to say about error during type extensions)
+void can return never and we can assign undefined to void variable. never - will never return
+
+Null
+Can be assigned only to null or any. Use null when we should consciously say that object or variable is not defined.
+
+
