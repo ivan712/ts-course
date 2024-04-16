@@ -98,4 +98,30 @@ void can return never and we can assign undefined to void variable. never - will
 Null
 Can be assigned only to null or any. Use null when we should consciously say that object or variable is not defined.
 
+Type Guards
+Example: 
+function(v: string | number): v is string {
+  if (typeof v === 'string') {
+    return true;
+  } else {
+    return false;
+  }
+}
+Can be used for type narrowing
 
+
+Assert
+Example:
+interface User {
+  name: string;
+}
+function assertUser(obj: unknown): assert obj is User {
+  if (typeof obj === 'object' && !!obj && 'name' in User) {
+    return;
+  } else {
+    throw new Error();
+  }
+}
+a = {}
+assertUser(a);
+console.log(a.name); // no compildation errors cause we have used assert function
