@@ -125,3 +125,86 @@ function assertUser(obj: unknown): assert obj is User {
 a = {}
 assertUser(a);
 console.log(a.name); // no compildation errors cause we have used assert function
+
+Overwrite
+function foo(a: number);
+function foo(a: string);
+function foo(a: number | string) {
+  console.log(a);
+}
+Can be use for constractor too. Constructor always returns instance of class object. Return can not be overwritten.
+
+Implements
+Usually, obviosly, but some not standart examples. 
+interface IUser {
+  foo(name: string): void;
+}
+class User implements IUser {
+  async foo(name: string | number): Promise<void> {
+    console.log(name);
+}
+This example is correct. Compiler will not show any errors.
+
+Extendes
+When we inherit, we should notice parent's constructor using super. We also can call parent's methods in child's class, e.g. super.pay(). And we should write overwrite word in child's class when overwrite methods.
+
+Features of inheritance
+Example
+class User {
+  name: string = 'user';
+
+  constructor() {
+    console.log(this.name);
+  }
+}
+class Admin {
+  name: string = 'admin';
+}
+new Admin();
+Shows "user", but 
+
+class User {
+    name: string = 'user';
+
+    constructor() {
+        console.log(this.name);
+    }
+}
+class Admin extends User {
+    name: string = 'admin';
+
+    constructor() {
+        super();
+        console.log(this.name);
+    }
+}
+new Admin();
+shows:
+"user"
+"admin"
+
+We can use inheritance effectively when we have the same domain area. For example, when we have user and we want to make UserWithCreds class. But it will be a bad idea when we have different domain areas. E.g., Paymnet and UserWithPayment. In this case the best way is a composition:
+class Payment {
+  paymentId: string;
+}
+class User {
+  name: string;
+}
+class UserWithPayment {
+  payment: Payment;
+  user: User;
+}
+
+Privacy in ts and js
+Example
+class User {
+  private a: string = 'aa';
+  #b = 'bb'; //private method from js. Uses WeakMap() under the hood
+}
+const u = new User();
+console.log(u.a) //should be compile error, but print aa
+console.log(u.b) //should be compile error, but print undefined not bb
+
+
+
+
