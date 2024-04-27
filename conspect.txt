@@ -237,4 +237,11 @@ class UserBuilder {
   }
 }
 
-
+Abstract classes
+abstract class AA {
+  public abstract method(): void; // реализация недопустима
+  public method2(): string {
+    return 'str';
+  }
+}
+const a = new AA(); //error. Only can be extended
