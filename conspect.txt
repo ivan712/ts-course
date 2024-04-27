@@ -223,6 +223,11 @@ This
 In class properties we can use e.g. 
 class Payment {
   date: Date;
-  setDate() {}
+  setDate(this: Payment) { //can hint to compiler about context to not lo 
+    this.date = new Date()
+  }
 }
+To fix context we can use arrow functions
+
+
 
