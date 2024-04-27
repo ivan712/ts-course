@@ -228,6 +228,13 @@ class Payment {
   }
 }
 To fix context we can use arrow functions
-
+This can be used as property type:
+class UserBuilder {
+  name: string;
+  setName(name: string): this {
+    this.name = name;
+    return this;
+  }
+}
 
 
