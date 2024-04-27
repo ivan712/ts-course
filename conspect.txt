@@ -220,4 +220,9 @@ class User {
 }
 
 This
+In class properties we can use e.g. 
+class Payment {
+  date: Date;
+  setDate() {}
+}
 
