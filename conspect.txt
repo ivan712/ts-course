@@ -374,3 +374,38 @@ Implicit Override
 Дополнительные Настройки
 Skip Lib Check & Skip Default Lib Check
 Позволяют пропустить проверку типов в библиотеках и дефолтных библиотеках, что может ускорить компиляцию.
+
+Generics
+built-in generics examples:
+1) const a: Array<number> = [1, 2, 3];
+2) async function foo() {
+  const r = await new Promise<number>(res => {
+    res(123);
+  });
+3) const check: Record<string, boolean> = {
+  drive: true,
+  kpp: false
+}
+
+Generics in function 
+Example:
+function logger<T>(data: T): T {
+  console.log(data);
+  return data;
+}
+const a = logger<number>(123);
+function getSplitedArray<T>(arr: Array<T>): Array<T> {
+  const l = arr.length // 2;
+  return arr.splice(0, l);
+}
+
+Generics in types and interfaces
+Examples:
+interface IMyInterface<T> {
+  name: string;
+  smth: T;
+}
+type MyType<T> = {
+  name: string;
+  smth: T;
+}
