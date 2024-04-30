@@ -489,3 +489,6 @@ const err: HTTPResponse<'failed'> = {
   data: new Error('failed')
 }
   
+Infer
+...
+
