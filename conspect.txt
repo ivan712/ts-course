@@ -478,3 +478,14 @@ type RoleType = User["roles"][number]; //RoleType = Role
 //Another useful example
 const rolesArray = ['admin', 'user'] as const; // type = readonly ['admin', 'user']
 type RoleTypes = typeof rolesArray[number]; //type RoleTypes = "admin" | "user"
+
+Conditional Types
+interface HTTPResponse<T extends 'success' | 'failed'> {
+  code: number;
+  data: T extends 'success' ? string : Error;
+}
+const err: HTTPResponse<'failed'> = {
+  code: 500,
+  data: new Error('failed')
+}
+  
