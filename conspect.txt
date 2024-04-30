@@ -445,3 +445,36 @@ function getValue<T, K extends keyof T>(object: T, key: K): T[K] {
   return object[key];
 }
 Это обеспечивает, что код безопасен в runtime: если попытаться использовать несуществующий ключ, TypeScript выдаст ошибку на этапе компиляции.
+
+typeof
+Example
+let strOrNumber: string | number;
+let strOrNumber2: typeof strOrNumber;
+const user = {
+  name: "Ivan",
+  age: 100
+}
+let u2: keyof typeof user //let u2: "name" | "age"
+let u3: keyof user; //Error: 'user' refers to a value, but is being used as a type here. Did you mean 'typeof user'?
+
+Indexed Access Types
+Examples:
+interface Role {
+  name: string;
+}
+interface User {
+  name: string;
+  roles: Role[];
+}
+type type1 =  User['roles'];//type1 = Role[]
+//But next exp gives an error
+const roles: string = 'roles'
+type type2 =  User[roles] //'roles' refers to a value, but is being used as a type here;
+//We can fix it
+const roles2 = 'roles';
+type type3 = User[typeof roles2];
+//To get Role type from array
+type RoleType = User["roles"][number]; //RoleType = Role
+//Another useful example
+const rolesArray = ['admin', 'user'] as const; // type = readonly ['admin', 'user']
+type RoleTypes = typeof rolesArray[number]; //type RoleTypes = "admin" | "user"
