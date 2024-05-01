@@ -492,3 +492,60 @@ const err: HTTPResponse<'failed'> = {
 Infer
 ...
 
+Mapped Types
+...
+
+Liretal Template Types
+...
+
+Partial, Required, Readonly
+examples
+interface User {
+  name: string;
+  age?: number;
+}
+type R = Readonly<User>;
+/*
+type Read = {
+    readonly name: string;
+    readonly age?: number | undefined;
+}
+We can not change readonly property after object creation
+*/
+type Req = Required<User>;
+/*
+type Req = {
+    name: string;
+    age: number;
+}
+*/
+type Par = Partial<User>;
+/*
+type Par = {
+    name?: string;
+    age?: number;
+}
+*/
+
+Pick, Omit, Extract, Exclude
+interface User {
+  name: string;
+  skills: string;
+  age: number;
+}
+type o = Omit<User, 'name' | 'skills'>;
+/*
+type o = {
+  age: number;
+}
+*/
+type p = Pick<User, 'name' | 'skills'>;
+/*
+type p = {
+  name: string;
+  skills: string;
+}
+*/
+type extr = Extract<User | string, string>; //type extr = string;
+type excl = Exclude<User | string | boolean, User>; //type excl = string | boolean;
+
