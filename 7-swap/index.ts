@@ -25,7 +25,7 @@ function swap(obj: Record<string, unknown>): Record<string, string> {
   };
   
   const swappedObj1 = swap(obj11);
-  console.log(swappedObj);
+  console.log(swappedObj1);
   
   const obj12 = {
     A: { gg: 10 },
@@ -34,4 +34,4 @@ function swap(obj: Record<string, unknown>): Record<string, string> {
   };
   
   const swappedObj2 = swap(obj12);
-  console.log(swappedObj);
+  console.log(swappedObj1);
