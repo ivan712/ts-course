@@ -15,6 +15,13 @@ interface IHeaders {
     [key: string]: string;
 }
 
+interface IItem {
+    userId?: number;
+    id?: number;
+    title?: string;
+    completed?: boolean;
+}
+
 export default class QueryGenerator {
     public method: QueryMethod = QueryMethod.GET;
     public url!: string;
@@ -43,27 +50,28 @@ export default class QueryGenerator {
         return this;
     }
 
-    public async exec(): Promise<any> {
-        if (!this.url) {
-            throw new Error('Url is required');
-        }
-
-        const options: fetch.RequestInit = {
-            method: this.method,
-            headers: this.headers
-        };
-
-        if (this.body) {
-            options.body = JSON.stringify(this.body);
-        }
-
+    public async exec<T = any>(): Promise<T> {
         try {
+            if (!this.url) {
+                throw new Error('Url is required');
+            }
+
+            const options: fetch.RequestInit = {
+                method: this.method,
+                headers: this.headers
+            };
+
+            if (this.body) {
+                options.body = JSON.stringify(this.body);
+            }
+
             const response = await fetch(this.url, options);
             const data = await response.json();
             return data;
         } catch (error) {
             if (error instanceof Error)
                 throw new Error(`Failed to generate query: ${error.message}`);
+            return Promise.reject(error);
         }
     }
 }
@@ -73,8 +81,8 @@ const queryGenerator = new QueryGenerator();
 (async () => {
     const data = await queryGenerator
        .setMethod(QueryMethod.GET)
-       .setUrl('https://jsonplaceholder.typicode.com/todosss/1')
-       .exec();
+       .setUrl('https://jsonplaceholder.typicode.com/todos/1')
+       .exec<IItem>();
 
     console.log('data', data);
 })()

@@ -42,17 +42,17 @@ class QueryGenerator {
     }
     exec() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this.url) {
-                throw new Error('Url is required');
-            }
-            const options = {
-                method: this.method,
-                headers: this.headers
-            };
-            if (this.body) {
-                options.body = JSON.stringify(this.body);
-            }
             try {
+                if (!this.url) {
+                    throw new Error('Url is required');
+                }
+                const options = {
+                    method: this.method,
+                    headers: this.headers
+                };
+                if (this.body) {
+                    options.body = JSON.stringify(this.body);
+                }
                 const response = yield (0, node_fetch_1.default)(this.url, options);
                 const data = yield response.json();
                 return data;
@@ -60,6 +60,7 @@ class QueryGenerator {
             catch (error) {
                 if (error instanceof Error)
                     throw new Error(`Failed to generate query: ${error.message}`);
+                return Promise.reject(error);
             }
         });
     }
@@ -69,7 +70,7 @@ const queryGenerator = new QueryGenerator();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield queryGenerator
         .setMethod(QueryMethod.GET)
-        .setUrl('https://jsonplaceholder.typicode.com/todosss/1')
+        .setUrl('https://jsonplaceholder.typicode.com/todos/1')
         .exec();
     console.log('data', data);
 }))();

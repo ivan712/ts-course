@@ -54,9 +54,6 @@ class QueryGenerator {
             }
             try {
                 const response = yield (0, node_fetch_1.default)(this.url, options);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
                 const data = yield response.json();
                 return data;
             }
@@ -67,11 +64,12 @@ class QueryGenerator {
         });
     }
 }
+exports.default = QueryGenerator;
 const queryGenerator = new QueryGenerator();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield queryGenerator
         .setMethod(QueryMethod.GET)
-        .setUrl('https://jsonplaceholder.typicode.com/todosss/1')
+        .setUrl('https://jsonplaceholder.typicode.com/todos/1')
         .exec();
     console.log('data', data);
 }))();

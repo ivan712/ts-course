@@ -26,4 +26,4 @@ class ProductProxy {
     }
 }
 const productProxy = new ProductProxy(new Products());
-productProxy.getProductsById(100).then(console.log);
+productProxy.getProductsById(1).then(console.log);
